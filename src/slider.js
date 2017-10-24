@@ -50,7 +50,8 @@ class Slider {
 
     _bindEvents() {
         this.element.addEventListener('click', this._elementClickHandler.bind(this));
-        this.indicatorElement.addEventListener('click', this._indicatorClickHandler.bind(this))
+        this.indicatorElement.addEventListener('click', this._indicatorClickHandler.bind(this));
+        document.addEventListener('visibilitychange', this._visibilityChangeHandler.bind(this));
     }
 
     _elementClickHandler(e) {
@@ -77,6 +78,12 @@ class Slider {
 
         this._stop();
         this._slide(direction, this.items.item(indicatorIndex));
+    }
+
+    _visibilityChangeHandler() {
+        document.visibilityState === 'hidden' ?
+            this._stop() :
+            this._start();
     }
 
     _setIndicator(index) {
